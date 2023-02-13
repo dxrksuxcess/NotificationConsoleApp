@@ -1,0 +1,8 @@
+{
+  "SenderEmail": "testemail_elcomplus@mail.ru",
+  "SenderName": "Ilya Fedin",
+  "PasswordOfSenderEmail": "rxvQPERfYSNe2NNFqjAv",
+  "MailRuServerSmtp": "smtp.mail.ru",
+  "DefPortSmtp": 587,
+  "ReservePortSmtp":  2525
+}
