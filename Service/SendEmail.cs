@@ -14,7 +14,7 @@ namespace NotificationApp.Service
                            // Изолированный метод (при наследовании нельзя переопределить sealed override public (),
                            // при вызове метода объектом класса наследника будет выполняться метод из наследуемого класса)
     {
-        public static void FuncSendEmail(string subject, string body, string recipient)
+        public void FuncSendEmail(string subject, string body, string recipient)
         {
             try
             {
@@ -38,7 +38,8 @@ namespace NotificationApp.Service
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message); // Обработка исключения и вывод сообщения на консоль
+                /*Console.WriteLine(e.Message); // Обработка исключения и вывод сообщения на консоль*/
+                throw;
             }
 
         }
