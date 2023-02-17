@@ -8,6 +8,7 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace NotificationApp.Service
 {
     public class NotificationDiscordBot
@@ -16,42 +17,46 @@ namespace NotificationApp.Service
 
         public async Task RunBot()
         {
-            var config = new DiscordSocketConfig()
-            {
-                AlwaysDownloadUsers= true,
+            var socketConfig = new DiscordSocketConfig()
+            {  
+                AlwaysDownloadUsers = true,
                 GatewayIntents = GatewayIntents.All
+                
             };
             
-            client = new DiscordSocketClient(); 
-            client.MessageReceived += CommandsHandler;
+            client = new DiscordSocketClient(socketConfig); 
+            client.MessageReceived += MessagesHandler;
             client.Log += Log;
 
-            var token = "MTA3NDYxNjIzNjI0OTQ2OTAzOA.G1LaB-.BEeaZhe8DsBt0QblOSso63kKvDFCVuBZ4_jVRs";
+            var token = "MTA3NDYxNjIzNjI0OTQ2OTAzOA.G-rLxV.sOCGjXrfELE7NDU9KH_VhhXvLg5_C0IkAVXq-c";
 
             await client.LoginAsync(TokenType.Bot, token);
             await client.StartAsync();
 
             await Task.Delay(-1);
+
+
         }
 
-        private Task Log(LogMessage arg)
+        public Task Log(LogMessage msg)
         {
             /*throw new NotImplementedException();*/
-            Console.WriteLine(arg.ToString());
+            Console.WriteLine(msg.ToString());
             return Task.CompletedTask;
         }
 
-        private Task CommandsHandler(SocketMessage arg)
+        public Task MessagesHandler (SocketMessage msg) // Обработчик полученных сообщений
         {
-            /*var message = arg as SocketUserMessage;
-            var context = new SocketCommandContext(client, message);
-
-            if(message!.Author.IsBot)
-            {
-                return;
-            }*/
-            throw new NotImplementedException();
+            
+            if (!msg.Author.IsBot)
+            {  
+                msg.Author.SendMessageAsync($"{msg.Author.Mention}, ваше сообщение <<{msg.Content}>> и ваш id -");
+            }
+            return Task.CompletedTask;
+            /*throw new NotImplementedException();*/
         }
+
+       
         
     }
 }

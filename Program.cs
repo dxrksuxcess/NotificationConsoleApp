@@ -6,6 +6,11 @@ using System.Net;
 using System.Net.Mail;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json.Serialization;
+using Discord;
+using Discord.Net;
+using Discord.WebSocket;
+using System.Threading.Tasks;
+
 
 namespace NotificationApp
 {
@@ -23,9 +28,10 @@ namespace NotificationApp
             string jsonObject = JsonConvert.SerializeObject(data, Formatting.Indented);
             Console.WriteLine(jsonObject);
             File.WriteAllText("test.json", jsonObject);*/
+            var bot = new NotificationDiscordBot();
+            bot.RunBot().GetAwaiter().GetResult();
 
-
-            Console.WriteLine("Enter the subject of message: ");
+            /*Console.WriteLine("Enter the subject of message: ");
             string? subject = Console.ReadLine();
 
             Console.WriteLine("Enter the text of message: ");
@@ -44,9 +50,13 @@ namespace NotificationApp
             } while (string.IsNullOrEmpty(recipient));
 
             // Отправка сообщения на почту
-            SendEmail.FuncSendEmail(subject!, body!, recipient!);
+            SendEmail sendEmailObject = new SendEmail();
+            sendEmailObject.FuncSendEmail(subject!, body!, recipient!);*/
+            
 
-       /* => new Program().MainAsync().GetAwaiter().GetResult();*/
+
+
+
         }
     }
 
