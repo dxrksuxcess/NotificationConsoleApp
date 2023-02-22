@@ -4,6 +4,7 @@ using Discord.WebSocket;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Channels;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace NotificationApp.Service
 {
-    public class NotificationDiscordBot
+    sealed class NotificationDiscordBot
     {
         DiscordSocketClient? client;
 
@@ -25,18 +26,23 @@ namespace NotificationApp.Service
                 
             };
             
-            client = new DiscordSocketClient(socketConfig); 
-            client.MessageReceived += MessagesHandler;
-            client.Log += Log;
+            client = new DiscordSocketClient(socketConfig);
 
-            var token = "MTA3NDYxNjIzNjI0OTQ2OTAzOA.GpeBuA.hZdkCv7dhbXXZkcgSmMuFcckSRYs7Qv6ydVpV8";
+            client.MessageReceived += MessagesHandler;
+            /*client.Log += Log;*/ 
+            
+            var token = "MTA3NDYxNjIzNjI0OTQ2OTAzOA.GHQnrW.RQ4Z5JRJx7T-uH0EMOkBiZT71TUS-NKX4rmnl4";
 
             await client.LoginAsync(TokenType.Bot, token);
             await client.StartAsync();
 
-            await Task.Delay(-1);
-           
 
+            string? message = "Сообщение об ошибке";
+
+            await Notification(message);
+
+            await Task.Delay(-1);
+  
         }
 
         public Task Log(LogMessage msg)
@@ -46,6 +52,36 @@ namespace NotificationApp.Service
             return Task.CompletedTask;
         }
 
+
+
+        /*public async Task MessageUserAsync(IUser user)
+        {
+            var channel = await user.CreateDMChannelAsync();
+            try
+            {
+                await channel.SendMessageAsync("Awesome stuff!");
+            }
+            catch (Discord.Net.HttpException ex) when (ex.HttpCode == HttpStatusCode.Forbidden)
+            {
+                Console.WriteLine($"Boo, I cannot message {user}.");
+            }
+        }*/
+
+       
+
+        public async Task<Task> Notification(string message)
+        {
+            
+            Console.WriteLine("Введите ID пользователя");
+            ulong u = ulong.Parse(Console.ReadLine());
+
+            IUser? user = client?.GetUserAsync(u).Result;
+
+            /*var channel = await user.GetOrCreateDMChannelAsync();*/
+            await UserExtensions.SendMessageAsync(user, message);
+            return Task.CompletedTask;
+            
+        }
         public async Task<Task> MessagesHandler(SocketMessage msg) // Обработчик полученных сообщений
         {
             ulong channelID = msg.Channel.Id; // ID чата на сервере дискорд, где было отправлено сообщение
@@ -60,6 +96,9 @@ namespace NotificationApp.Service
                 /*message = Console.ReadLine(); - Ввод текста сообщения через консоль*/
 
                 IUser? user = client?.GetUserAsync(u).Result; // Получение логина пользователя по его ID
+
+
+
                 message = $"Имя пользователя {userName}\n" + // Тело сообщения
                           $"ID пользователя - {u}\n" +
                           $"ID чата сервера - {channelID}\n" +
@@ -73,8 +112,5 @@ namespace NotificationApp.Service
             return Task.CompletedTask;
             /*throw new NotImplementedException();*/
         }
-
-
-
     }
 }
