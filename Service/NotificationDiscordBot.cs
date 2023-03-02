@@ -1,6 +1,8 @@
 ﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using Newtonsoft.Json;
+using NotificationApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,30 +18,30 @@ namespace NotificationApp.Service
     sealed class NotificationDiscordBot
     {
         DiscordSocketClient? client;
-
+        DiscordUserId DiscordUserId = new DiscordUserId();
         public async Task RunBot()
         {
             var socketConfig = new DiscordSocketConfig()
             {  
                 AlwaysDownloadUsers = true,
                 GatewayIntents = GatewayIntents.All
-                
             };
             
             client = new DiscordSocketClient(socketConfig);
 
             client.MessageReceived += MessagesHandler;
-            /*client.Log += Log;*/ 
+            client.Log += Log;
             
-            var token = "MTA3NDYxNjIzNjI0OTQ2OTAzOA.GHQnrW.RQ4Z5JRJx7T-uH0EMOkBiZT71TUS-NKX4rmnl4";
+            var token = "MTA3NDYxNjIzNjI0OTQ2OTAzOA.GG6O9l.nByaWodbukWtzBwpFkg8WD9fvdbCoFrl1a5wTg";
 
             await client.LoginAsync(TokenType.Bot, token);
             await client.StartAsync();
 
-
+            
             string? message = "Сообщение об ошибке";
+            string? userJira = "Ilya Fedin";
 
-            await Notification(message);
+            await Notification(message, userJira);
 
             await Task.Delay(-1);
   
@@ -69,15 +71,13 @@ namespace NotificationApp.Service
 
        
 
-        public async Task<Task> Notification(string message)
+        public async Task<Task> Notification(string message, string userJira)
         {
-            
-            Console.WriteLine("Введите ID пользователя");
-            ulong u = ulong.Parse(Console.ReadLine());
+            Console.ReadLine();
+            ulong u = DiscordUserId.GetId(userJira);
 
             IUser? user = client?.GetUserAsync(u).Result;
 
-            /*var channel = await user.GetOrCreateDMChannelAsync();*/
             await UserExtensions.SendMessageAsync(user, message);
             return Task.CompletedTask;
             
