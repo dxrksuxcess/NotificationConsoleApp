@@ -14,14 +14,14 @@ namespace NotificationApp.Service
                            // Изолированный метод (при наследовании нельзя переопределить sealed override public (),
                            // при вызове метода объектом класса наследника будет выполняться метод из наследуемого класса)
     {
-        public static void FuncSendEmail(string subject, string body, string recipient)
+        public void FuncSendEmail(string subject, string body, string recipient)
         {
             try
             {
                 
-                var fileName = "DataSendEmail.json";
+                var fileName = "SendEmailData.json";
                 string? jsonString = File.ReadAllText(fileName);
-                DataBase dataBase = JsonConvert.DeserializeObject<DataBase>(jsonString)!;
+                SendEmailData dataBase = JsonConvert.DeserializeObject<SendEmailData>(jsonString)!;
 
                 MailMessage message = new MailMessage(); // Объект сообщения(message) и его свойства
                 message.IsBodyHtml = false; // Тело сообщения текст, а не Html
@@ -39,6 +39,7 @@ namespace NotificationApp.Service
             catch (Exception e)
             {
                 Console.WriteLine(e.Message); // Обработка исключения и вывод сообщения на консоль
+
             }
 
         }
