@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 
 namespace NotificationApp.Models
 {
-    public class DataBase
+    public class SendEmailData
     {
         public string? SenderEmail { get; set; }
         public string? SenderName { get; set; }

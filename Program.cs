@@ -10,6 +10,8 @@ using Discord;
 using Discord.Net;
 using Discord.WebSocket;
 using System.Threading.Tasks;
+using System.Text.Json.Nodes;
+
 
 
 namespace NotificationApp
@@ -18,16 +20,7 @@ namespace NotificationApp
     {
         static void Main(string[] args)
         {
-            /*var data = new DataBase   -   Создание .json файла
-            {
-                SenderEmail = "testemail_elcomplus@mail.ru",
-                NameSunder = "Ilya Fedin",
-                PasswordOfSenderEmail = "rxvQPERfYSNe2NNFqjAv"
-            };
 
-            string jsonObject = JsonConvert.SerializeObject(data, Formatting.Indented);
-            Console.WriteLine(jsonObject);
-            File.WriteAllText("test.json", jsonObject);*/
             var bot = new NotificationDiscordBot();
             bot.RunBot().GetAwaiter().GetResult();
 
@@ -52,10 +45,6 @@ namespace NotificationApp
             // Отправка сообщения на почту
             SendEmail sendEmailObject = new SendEmail();
             sendEmailObject.FuncSendEmail(subject!, body!, recipient!);*/
-            
-
-
-
 
         }
     }
