@@ -10,5 +10,6 @@ namespace NotificationApp.Models
     {
         public string? userJira { get; set; }
         public ulong? userDiscord { get; set; }
+        public string? token { get; set; }
     }
 }
