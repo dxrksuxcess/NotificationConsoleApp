@@ -25,6 +25,7 @@ namespace NotificationApp.Service
             {  
                 AlwaysDownloadUsers = true,
                 GatewayIntents = GatewayIntents.All
+                
             };
             
             client = new DiscordSocketClient(socketConfig);
@@ -44,6 +45,8 @@ namespace NotificationApp.Service
             await Notification(message, userJira);
 
             await Task.Delay(-1);
+           
+
         }
 
         public Task Log(LogMessage msg)
