@@ -39,6 +39,7 @@ namespace NotificationApp.Service
             {
                 Console.WriteLine(e.Message); // Обработка исключения и вывод сообщения на консоль
 
+
             }
 
         }
