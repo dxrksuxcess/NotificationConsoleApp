@@ -20,10 +20,10 @@ namespace NotificationApp
         static void Main(string[] args)
         {
 
-            /*var bot = new NotificationDiscordBot();
-            bot.RunBot().GetAwaiter().GetResult();*/
+            var bot = new NotificationDiscordBot();
+            bot.RunBot().GetAwaiter().GetResult();
 
-            Console.WriteLine("Enter the subject of message: ");
+            /*Console.WriteLine("Enter the subject of message: ");
             string? subject = Console.ReadLine();
 
             Console.WriteLine("Enter the text of message: ");
@@ -43,7 +43,7 @@ namespace NotificationApp
 
             // Отправка сообщения на почту
             SendEmail sendEmailObject = new SendEmail();
-            sendEmailObject.FuncSendEmail(subject!, body!, recipient!);
+            sendEmailObject.FuncSendEmail(subject!, body!, recipient!);*/
 
         }
     }

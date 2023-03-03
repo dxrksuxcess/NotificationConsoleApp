@@ -30,6 +30,5 @@ namespace NotificationApp.Service
 
             return token;
         }
-        
     }
 }
