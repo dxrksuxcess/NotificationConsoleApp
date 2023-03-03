@@ -18,7 +18,7 @@ namespace NotificationApp.Service
     sealed class NotificationDiscordBot
     {
         DiscordSocketClient? client;
-        DiscordUserId DiscordUserId = new DiscordUserId();
+        DiscordService service = new DiscordService();
         public async Task RunBot()
         {
             var socketConfig = new DiscordSocketConfig()
@@ -32,7 +32,7 @@ namespace NotificationApp.Service
             client.MessageReceived += MessagesHandler;
             client.Log += Log;
             
-            var token = "MTA3NDYxNjIzNjI0OTQ2OTAzOA.GG6O9l.nByaWodbukWtzBwpFkg8WD9fvdbCoFrl1a5wTg";
+            var token = service.GetToken();
 
             await client.LoginAsync(TokenType.Bot, token);
             await client.StartAsync();
@@ -44,37 +44,18 @@ namespace NotificationApp.Service
             await Notification(message, userJira);
 
             await Task.Delay(-1);
-  
         }
 
         public Task Log(LogMessage msg)
         {
-            /*throw new NotImplementedException();*/
             Console.WriteLine(msg.ToString());
             return Task.CompletedTask;
         }
 
-
-
-        /*public async Task MessageUserAsync(IUser user)
-        {
-            var channel = await user.CreateDMChannelAsync();
-            try
-            {
-                await channel.SendMessageAsync("Awesome stuff!");
-            }
-            catch (Discord.Net.HttpException ex) when (ex.HttpCode == HttpStatusCode.Forbidden)
-            {
-                Console.WriteLine($"Boo, I cannot message {user}.");
-            }
-        }*/
-
-       
-
         public async Task<Task> Notification(string message, string userJira)
         {
             Console.ReadLine();
-            ulong u = DiscordUserId.GetId(userJira);
+            ulong u = service.GetId(userJira);
 
             IUser? user = client?.GetUserAsync(u).Result;
 
@@ -110,7 +91,6 @@ namespace NotificationApp.Service
                 /*msg.Author.SendMessageAsync($"{msg.Author.Mention}, ваше сообщение <<{msg.Content}>> и ваш id -");*/
             }
             return Task.CompletedTask;
-            /*throw new NotImplementedException();*/
         }
     }
 }
