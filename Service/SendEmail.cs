@@ -10,16 +10,14 @@ using NotificationApp.Models;
 
 namespace NotificationApp.Service
 {
-    sealed class SendEmail // Изолированный класс SendEmail не может быть унаследован (не может иметь производных классов)
-                           // Изолированный метод (при наследовании нельзя переопределить sealed override public (),
-                           // при вызове метода объектом класса наследника будет выполняться метод из наследуемого класса)
+    sealed class SendEmail
     {
         public void FuncSendEmail(string subject, string body, string recipient)
         {
             try
             {
                 
-                var fileName = "SendEmailData.json";
+                var fileName = "D:\\Programming\\Internship at Elcomplus\\NotificationApp\\Models\\SendEmailData.json";
                 string? jsonString = File.ReadAllText(fileName);
                 SendEmailData dataBase = JsonConvert.DeserializeObject<SendEmailData>(jsonString)!;
 
@@ -29,9 +27,30 @@ namespace NotificationApp.Service
                 message.Subject = subject; // Название темы сообщения
                 message.Body = body; // Текст сообщения    
                 message.To.Add(recipient); // Получение почты получателя
+                
+                WebProxy proxy = new WebProxy
+                {
+                    Address = new Uri("http://{proxyHost}:{proxyPort}"),
+                    BypassProxyOnLocal = false,
+                    UseDefaultCredentials = false,
+
+                    Credentials = new NetworkCredential(
+                        userName: "proxyUserName",
+                        password: "proxyPassword")
+                };
+
+                HttpClientHandler httpClientHandler = new HttpClientHandler
+                {
+                    Proxy = proxy
+                };
+
+                
 
                 // smtp - сервера и порт с которого будет отправлено письмо
-                SmtpClient client = new SmtpClient(dataBase.MailRuServerSmtp, dataBase.DefPortSmtp); //smtp - порт 587, 25, 2525 — отвечает за передачу сообщений.
+                SmtpClient client = new SmtpClient(); //smtp - порт 587, 25, 2525 — отвечает за передачу сообщений.
+                
+                client.Host = dataBase.MailRuServerSmtp!;
+                client.Port = dataBase.DefPortSmtp;
                 client.Credentials = new NetworkCredential(dataBase.SenderEmail, dataBase.PasswordOfSenderEmail);
                 client.EnableSsl = true; // Подключение протокола безопасной связи SSL
                 client.Send(message); // Функция отправки сообщения

@@ -17,50 +17,13 @@ namespace NotificationApp
 {
     internal class Program
     {
-        
-        
         static void Main(string[] args)
         {
 
-            /*DiscordBotData firstValue = new DiscordBotData();
-            firstValue.userDiscord = 11111111111111111111;
-            firstValue.userJira = "first value";
+            /*var bot = new NotificationDiscordBot();
+            bot.RunBot().GetAwaiter().GetResult();*/
 
-            var userList = new List<DiscordBotData>();
-            userList.Add(firstValue);
-
-            var jsonObject = JsonConvert.SerializeObject(userList, Formatting.Indented);
-            Console.WriteLine(jsonObject);
-            File.WriteAllText("test.json", jsonObject);*/
-            /*var data = new DataBase   -   Создание .json файла
-            {
-                SenderEmail = "testemail_elcomplus@mail.ru",
-                NameSunder = "Ilya Fedin",
-                PasswordOfSenderEmail = "rxvQPERfYSNe2NNFqjAv"
-            };
-
-            string jsonObject = JsonConvert.SerializeObject(data, Formatting.Indented);
-            Console.WriteLine(jsonObject);
-            File.WriteAllText("test.json", jsonObject);*/
-            var bot = new NotificationDiscordBot();
-            bot.RunBot().GetAwaiter().GetResult();
-
-            /*var fileName = "DiscordBotData.json";
-            string? jsonString = File.ReadAllText(fileName);
-            var data = JsonConvert.DeserializeObject<List<DiscordBotData>>(jsonString)!;
-            
-            foreach (var item in data)
-            {
-                if (item.userJira == "SecondUser")
-                {
-                    Console.WriteLine("User Jira - {0}\n" +
-                                      "User Discord - {1}", item.userJira, item.userDiscord);
-                }
-            }*/
-
-
-
-            /*Console.WriteLine("Enter the subject of message: ");
+            Console.WriteLine("Enter the subject of message: ");
             string? subject = Console.ReadLine();
 
             Console.WriteLine("Enter the text of message: ");
@@ -80,11 +43,7 @@ namespace NotificationApp
 
             // Отправка сообщения на почту
             SendEmail sendEmailObject = new SendEmail();
-            sendEmailObject.FuncSendEmail(subject!, body!, recipient!);*/
-
-
-
-
+            sendEmailObject.FuncSendEmail(subject!, body!, recipient!);
 
         }
     }
