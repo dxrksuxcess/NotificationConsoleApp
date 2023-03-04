@@ -1,18 +1,15 @@
 ﻿using Newtonsoft.Json;
 using NotificationApp.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NotificationApp.Service
 {
-    public class DiscordService
+    public class JiraDiscordUserMapper
     {
+
         public ulong GetId(string userJira)
         {
-            var fileName = "D:\\Programming\\Internship at Elcomplus\\NotificationApp\\Models\\DiscordBotData.json";
+            string path = Directory.GetCurrentDirectory() + "\\DiscordBotData.json";
+            var fileName = path;
             string? jsonString = File.ReadAllText(fileName);
             var data = JsonConvert.DeserializeObject<List<DiscordBotData>>(jsonString)!;
 
