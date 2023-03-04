@@ -1,28 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
+﻿using System.Net.Mail;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NotificationApp.Models;
+using System.Runtime.CompilerServices;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NotificationApp.Service
 {
-    sealed class SendEmail // Изолированный класс SendEmail не может быть унаследован (не может иметь производных классов)
-                           // Изолированный метод (при наследовании нельзя переопределить sealed override public (),
-                           // при вызове метода объектом класса наследника будет выполняться метод из наследуемого класса)
+    sealed class EmailSender
     {
-        public void FuncSendEmail(string subject, string body, string recipient)
+        private SendEmailData dataBase;
+        public EmailSender()
+        {
+            string path = Directory.GetCurrentDirectory() + "\\SendEmailData.json";
+            var fileName = path;
+            string? jsonString = File.ReadAllText(fileName);
+            dataBase = JsonConvert.DeserializeObject<SendEmailData>(jsonString)!;
+        }
+        public void SendEmail(string subject, string body, string recipient)
         {
             try
             {
-                
-                var fileName = "D:\\Programming\\Internship at Elcomplus\\NotificationApp\\Models\\SendEmailData.json";
-                string? jsonString = File.ReadAllText(fileName);
-                SendEmailData dataBase = JsonConvert.DeserializeObject<SendEmailData>(jsonString)!;
-
                 MailMessage message = new MailMessage(); // Объект сообщения(message) и его свойства
                 message.IsBodyHtml = false; // Тело сообщения текст, а не Html
                 message.From = new MailAddress(dataBase.SenderEmail!, dataBase.SenderName); // Данные отправителя (Почта и имя)
@@ -40,7 +38,6 @@ namespace NotificationApp.Service
             {
                 Console.WriteLine(e.Message); // Обработка исключения и вывод сообщения на консоль 
             }
-
         }
     }
 }
