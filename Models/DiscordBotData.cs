@@ -1,10 +1,8 @@
-﻿
-namespace NotificationApp.Models
+﻿namespace NotificationApp.Models
 {
     public class DiscordBotData
     {
         public string? userJira { get; set; }
         public ulong? userDiscord { get; set; }
-        public string? token { get; set; }
     }
 }
