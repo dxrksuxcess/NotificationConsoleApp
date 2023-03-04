@@ -5,10 +5,9 @@ namespace NotificationApp.Service
 {
     public class JiraDiscordUserMapper
     {
-
         public ulong GetId(string userJira)
         {
-            string path = Directory.GetCurrentDirectory() + "\\DiscordBotData.json";
+            string path = Directory.GetCurrentDirectory() + "\\Models\\DiscordBotData.json";
             var fileName = path;
             string? jsonString = File.ReadAllText(fileName);
             var data = JsonConvert.DeserializeObject<List<DiscordBotData>>(jsonString)!;
@@ -17,16 +16,16 @@ namespace NotificationApp.Service
 
             return result;
         }
-
         public string GetToken()
         {
-            var fileName = "D:\\Programming\\Internship at Elcomplus\\NotificationApp\\Models\\DiscordConfig.json";
+            string path = Directory.GetCurrentDirectory() + "\\Models\\DiscordConfig.json";
+            var fileName = path;
             string? jsonString = File.ReadAllText(fileName);
-            DiscordBotData data = JsonConvert.DeserializeObject<DiscordBotData>(jsonString)!;
+            DiscordConfig data = JsonConvert.DeserializeObject<DiscordConfig>(jsonString)!;
 
             string? token = data.token;
 
-            return token;
+            return token!;
         }
     }
 }

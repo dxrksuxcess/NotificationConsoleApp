@@ -2,8 +2,6 @@
 using System.Net;
 using Newtonsoft.Json;
 using NotificationApp.Models;
-using System.Runtime.CompilerServices;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NotificationApp.Service
 {
@@ -12,7 +10,7 @@ namespace NotificationApp.Service
         private SendEmailData dataBase;
         public EmailSender()
         {
-            string path = Directory.GetCurrentDirectory() + "\\SendEmailData.json";
+            string path = Directory.GetCurrentDirectory() + "\\Models\\SendEmailData.json";
             var fileName = path;
             string? jsonString = File.ReadAllText(fileName);
             dataBase = JsonConvert.DeserializeObject<SendEmailData>(jsonString)!;

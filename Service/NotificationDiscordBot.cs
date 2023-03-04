@@ -10,12 +10,12 @@ namespace NotificationApp.Service
         public async Task RunBot()
         {
             var socketConfig = new DiscordSocketConfig()
-            {  
+            {
                 AlwaysDownloadUsers = true,
                 GatewayIntents = GatewayIntents.All
-                
+
             };
- 
+
             client = new DiscordSocketClient(socketConfig);
             client.MessageReceived += MessagesHandler;
             client.Log += Log;
@@ -23,7 +23,7 @@ namespace NotificationApp.Service
 
             await client.LoginAsync(TokenType.Bot, token);
             await client.StartAsync();
-            
+
             string? message = "Сообщение об ошибке";
             string? userJira = "Ilya Fedin";
 
@@ -31,13 +31,11 @@ namespace NotificationApp.Service
 
             await Task.Delay(-1);
         }
-
         public Task Log(LogMessage msg)
         {
             Console.WriteLine(msg.ToString());
             return Task.CompletedTask;
         }
-
         public async Task<Task> SendMessageAsync(string message, string userJira)
         {
             Console.ReadLine();

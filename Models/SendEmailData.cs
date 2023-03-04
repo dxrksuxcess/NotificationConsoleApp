@@ -1,5 +1,4 @@
-﻿
-namespace NotificationApp.Models
+﻿namespace NotificationApp.Models
 {
     public class SendEmailData
     {
@@ -9,6 +8,5 @@ namespace NotificationApp.Models
         public string? MailRuServerSmtp { get; set; }
         public int DefPortSmtp { get; set; }
         public int ReservePortSmtp { get; set; }
-
     }
 }
