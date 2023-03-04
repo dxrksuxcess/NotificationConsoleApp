@@ -15,6 +15,7 @@ namespace NotificationApp
             string? body = Console.ReadLine();
             Console.WriteLine("Enter the recipient's email name");
             string? recipient;
+
             //Проверка на пустое значение почты получателя
             do
             {
@@ -24,6 +25,7 @@ namespace NotificationApp
                     Console.Write("Recipient's email name = null\n");
                 }
             } while (string.IsNullOrEmpty(recipient));
+
             // Отправка сообщения на почту
             EmailSender sendEmailObject = new EmailSender();
             sendEmailObject.SendEmail(subject!, body!, recipient!);

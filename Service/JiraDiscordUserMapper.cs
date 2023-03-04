@@ -16,6 +16,7 @@ namespace NotificationApp.Service
 
             return result;
         }
+
         public string GetToken()
         {
             string path = Directory.GetCurrentDirectory() + "\\Models\\DiscordConfig.json";

@@ -8,6 +8,7 @@ namespace NotificationApp.Service
     sealed class EmailSender
     {
         private SendEmailData dataBase;
+
         public EmailSender()
         {
             string path = Directory.GetCurrentDirectory() + "\\Models\\SendEmailData.json";
@@ -15,6 +16,7 @@ namespace NotificationApp.Service
             string? jsonString = File.ReadAllText(fileName);
             dataBase = JsonConvert.DeserializeObject<SendEmailData>(jsonString)!;
         }
+
         public void SendEmail(string subject, string body, string recipient)
         {
             try

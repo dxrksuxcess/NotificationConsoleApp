@@ -31,11 +31,13 @@ namespace NotificationApp.Service
 
             await Task.Delay(-1);
         }
+
         public Task Log(LogMessage msg)
         {
             Console.WriteLine(msg.ToString());
             return Task.CompletedTask;
         }
+
         public async Task<Task> SendMessageAsync(string message, string userJira)
         {
             Console.ReadLine();
@@ -44,6 +46,7 @@ namespace NotificationApp.Service
             await UserExtensions.SendMessageAsync(user, message);
             return Task.CompletedTask;
         }
+
         public async Task<Task> MessagesHandler(SocketMessage msg) // Обработчик полученных сообщений
         {
             ulong channelID = msg.Channel.Id; // ID чата на сервере дискорд, где было отправлено сообщение
